@@ -18,3 +18,10 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'arjitks'
+    repository: 'nodeapp'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
