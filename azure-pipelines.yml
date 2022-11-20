@@ -51,10 +51,11 @@ steps:
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
-- task: Bash@3
+- task: AzureCLI@2
   inputs:
-    targetType: 'inline'
-    script: |
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
       az account set --subscription 1b9180ce-38a7-45db-9bfe-259c79c4349a
-      az aks get-credentials --resource-group aks --name kubernetes
-      kubernetes apply -f Manifests/
+            az aks get-credentials --resource-group aks --name kubernetes
+            kubernetes apply -f Manifests/
