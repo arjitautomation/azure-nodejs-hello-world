@@ -48,5 +48,5 @@ steps:
   displayName: Docker push operation
   inputs:
     containerRegistry: 'arjitks_dockerhub'
-    repository: 'arjitks77/nodeapp'
+    repository: 'nodeapp'
     command: 'push'
