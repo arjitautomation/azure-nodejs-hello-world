@@ -42,5 +42,5 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'arjitks_dockerhub'
-    repository: 'nodeapp'
+    repository: 'arjitks77/nodeapp'
     command: 'push'
