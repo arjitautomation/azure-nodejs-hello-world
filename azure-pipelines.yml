@@ -51,9 +51,10 @@ steps:
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
-- task: KubernetesManifest@0
+- task: Bash@3
   inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: 'arjit_aks'
-    namespace: 'default'
-    manifests: '*'
+    targetType: 'inline'
+    script: |
+      az account set --subscription 1b9180ce-38a7-45db-9bfe-259c79c4349a
+      az aks get-credentials --resource-group aks --name kubernetes
+      kubernetes apply -f Manifests/
