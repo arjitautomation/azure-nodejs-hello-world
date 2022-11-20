@@ -18,10 +18,24 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
-
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo apt-get install wget apt-transport-https gnupg lsb-release
+      wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+      echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+      sudo apt-get update
+      sudo apt-get install trivy
 - task: Docker@2
   inputs:
     containerRegistry: 'arjitks_dockerhub'
-    repository: 'arjitks77/nodeapp'
-    command: 'buildAndPush'
+    repository: 'nodeapp'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
+
+- task: CmdLine@2
+  displayName: "Run trivy scan"
+  inputs:
+    script: |
+      trivy image --exit-code 1 --severity HIGH,CRITICAL nodeapp:$(tag)
