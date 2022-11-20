@@ -38,4 +38,4 @@ steps:
   displayName: "Run trivy scan"
   inputs:
     script: |
-      trivy image --exit-code 1 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
+      trivy image --exit-code 0 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
