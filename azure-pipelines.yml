@@ -43,5 +43,9 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'arjitks_dockerhub'
+    command: 'login'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'arjitks_dockerhub'
     repository: 'nodeapp'
     command: 'push'
