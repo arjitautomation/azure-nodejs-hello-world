@@ -50,3 +50,10 @@ steps:
     containerRegistry: 'arjitks_dockerhub'
     repository: 'arjitks77/nodeapp'
     command: 'push'
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'arjit_aks'
+    namespace: 'default'
+    manifests: '*'
