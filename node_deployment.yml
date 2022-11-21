@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: arjitks77/nodeapp:176
+        image: arjitks77/nodeapp:177
         resources:
           limits:
             memory: "128Mi"
