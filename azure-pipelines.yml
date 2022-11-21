@@ -51,11 +51,14 @@ steps:
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
-- task: AzureCLI@2
+- task: Kubernetes@1
   inputs:
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      az account set --subscription 1b9180ce-38a7-45db-9bfe-259c79c4349a
-            az aks get-credentials --resource-group aks --name kubernetes
-            kubernetes apply -f Manifests/
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'aks'
+    namespace: 'default'
+    command: 'apply'
+    arguments: 'Manifests/'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Container Registry'
+    dockerRegistryEndpoint: 'arjitks_dockerhub'
+    outputFormat: 'yaml'
