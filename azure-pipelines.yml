@@ -54,11 +54,9 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'aks'
+    kubernetesServiceEndpoint: 'azure'
     namespace: 'default'
     command: 'apply'
-    arguments: 'Manifests/'
+    arguments: 'node_deployment.yml'
     secretType: 'dockerRegistry'
-    containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'arjitks_dockerhub'
-    outputFormat: 'yaml'
+    containerRegistryType: 'Azure Container Registry'
