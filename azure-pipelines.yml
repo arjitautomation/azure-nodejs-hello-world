@@ -70,3 +70,8 @@ steps:
     command: 'apply'
     useConfigurationFile: true
     configuration: 'Manifests/node_loadbalancer.yml'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
