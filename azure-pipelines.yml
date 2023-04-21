@@ -40,36 +40,6 @@ steps:
     script: |
       trivy image --exit-code 0 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'arjitks_dockerhub'
-    command: 'login'
-- task: Docker@2
-  displayName: Docker push operation
-  inputs:
-    containerRegistry: 'arjitks_dockerhub'
-    repository: 'arjitks77/nodeapp'
-    command: 'push'
-
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'azure_aks'
-    namespace: 'default'
-    command: 'apply'
-    useConfigurationFile: true
-    configuration: 'Manifests/node_deployment.yml'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Azure Container Registry'
-
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'azure_aks'
-    namespace: 'default'
-    command: 'apply'
-    useConfigurationFile: true
-    configuration: 'Manifests/node_loadbalancer.yml'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
