@@ -41,6 +41,10 @@ steps:
     script: |
       trivy image --exit-code 0 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
 
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
