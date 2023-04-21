@@ -41,6 +41,12 @@ steps:
     script: |
       trivy image --exit-code 0 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
 
+- task: Docker@2
+  inputs:
+    containerRegistry: 'docker'
+    repository: 'arjitks77/nodeapp'
+    command: 'push'
+
 - task: CopyFiles@2
   inputs:
     Contents: '**'
