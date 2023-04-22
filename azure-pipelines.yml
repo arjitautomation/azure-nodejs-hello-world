@@ -48,6 +48,18 @@ steps:
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'aks'
+    manifests: 'node_deployment.yml'
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'aks'
+    manifests: 'node_loadbalancer.yml'
 - task: CopyFiles@2
   inputs:
     Contents: '**'
