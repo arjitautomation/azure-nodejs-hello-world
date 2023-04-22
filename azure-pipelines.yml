@@ -28,9 +28,10 @@ steps:
       sudo apt-get update
       sudo apt-get install trivy
 
+
 - task: Docker@2
   inputs:
-    containerRegistry: 'docker'
+    containerRegistry: 'dockerhub'
     repository: 'arjitks77/nodeapp'
     command: 'build'
     Dockerfile: '**/Dockerfile'
@@ -43,7 +44,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'docker'
+    containerRegistry: 'dockerhub'
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
