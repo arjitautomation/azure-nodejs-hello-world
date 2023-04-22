@@ -30,6 +30,7 @@ steps:
 
 
 - task: Docker@2
+  displayName: Docker image build
   inputs:
     containerRegistry: 'dockerhub'
     repository: 'arjitks77/nodeapp'
@@ -43,18 +44,21 @@ steps:
       trivy image --exit-code 0 --severity HIGH,CRITICAL arjitks77/nodeapp:$(tag)
 
 - task: Docker@2
+  displayName: Docker push
   inputs:
     containerRegistry: 'dockerhub'
     repository: 'arjitks77/nodeapp'
     command: 'push'
 
 - task: KubernetesManifest@1
+  displayName: kubernetes pod deployment
   inputs:
     action: 'deploy'
     connectionType: 'kubernetesServiceConnection'
     kubernetesServiceConnection: 'aks'
     manifests: 'node_deployment.yml'
 - task: KubernetesManifest@1
+  displayName: kubernetes service deployment
   inputs:
     action: 'deploy'
     connectionType: 'kubernetesServiceConnection'
